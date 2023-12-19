@@ -7,7 +7,7 @@ class Node:
 
     Attributes:
         data (int): The data stored in the node.
-        next_node (Node | None): The next node in the list, or None if the current node is the last.
+        next_node (Node): The next node in the list, or None if the current node is the last.
     """
 
     def __init__(self, data, next_node=None):
@@ -16,7 +16,7 @@ class Node:
 
         Args:
             data (int): The data to store in the node.
-            next_node (Node | None, optional): The next node in the list, or None if the current node is the last. Defaults to None.
+            next_node (Node, optional): The next node in the list, or None if the current node is the last. Defaults to None.
 
         Raises:
             TypeError: If `data` is not an integer or `next_node` is not a Node or None.
@@ -25,28 +25,64 @@ class Node:
         if not isinstance(data, int):
             raise TypeError("data must be an integer")
         if next_node is not None and not isinstance(next_node, Node):
-            raise TypeError("next_node must be a Node object or None")
+            raise TypeError("next_node must be a Node object")
 
-        self.data = data
-        self.next_node = next_node
+        self.__data = data
+        self.__next_node = next_node
 
-    def __str__(self):
+    @property
+    def data(self):
         """
-        Return a string representation of the data stored in the node.
+        Get the data stored in the node.
 
         Returns:
-            str: The data stored in the node.
+            int: The data stored in the node.
         """
-        return f"{self.data}"
+        return self.__data
 
-    def __repr__(self):
+    @data.setter
+    def data(self, value):
         """
-        Return a more complete string representation of the node.
+        Set the data stored in the node.
+
+        Args:
+            value (int): The new data to store in the node.
+
+        Raises:
+            TypeError: If the value is not an integer.
+        """
+
+        if not isinstance(value, int):
+            raise TypeError("data must be an integer")
+
+        self.__data = value
+
+    @property
+    def next_node(self):
+        """
+        Get the next node in the list.
 
         Returns:
-            str: A representation of the node with its data and next node reference.
+            Node: The next node in the list, or None if the current node is the last.
         """
-        return f"Node({self.data}, {self.next_node})"
+        return self.__next_node
+
+    @next_node.setter
+    def next_node(self, value):
+        """
+        Set the next node in the list.
+
+        Args:
+            value (Node): The new next node in the list, or None if the current node is the last.
+
+        Raises:
+            TypeError: If the value is not a Node or None.
+        """
+
+        if value is not None and not isinstance(value, Node):
+            raise TypeError("next_node must be a Node object")
+
+        self.__next_node = value
 
 
 class SinglyLinkedList:
@@ -76,7 +112,7 @@ class SinglyLinkedList:
         node = self.__head
         result = ""
         while node:
-            result += f"{node}\n"
+            result += f"{node.data}\n"
             node = node.next_node
         return result.rstrip("\n")
 
@@ -103,7 +139,9 @@ class SinglyLinkedList:
         current = self.__head
         previous = None
 
-        while current is not None and current.data < value:
+        while current is not None:
+            if current.data >= value:
+                break
             previous = current
             current = current.next_node
 
