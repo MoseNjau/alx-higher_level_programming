@@ -1,116 +1,80 @@
-#!/usr/bin/python3
-"""
-Defines an empty Rectangle class
-"""
+import sys
 
-
-class Rectangle:
+def is_valid(board, row, col):
     """
-    Representation of a rectangle
+    Checks if a queen can be placed at the given position.
+
+    Args:
+        board: A list of lists representing the chessboard.
+        row: The row index of the target position.
+        col: The column index of the target position.
+
+    Returns:
+        True if the position is valid, False otherwise.
     """
+    for i in range(row):
+        # Check for queens in the same column.
+        if board[i][col] == 1:
+            return False
+        # Check for diagonal attacks.
+        diagonals = [(-i, j) for i, j in zip(range(1, row + 1), range(col - row, col + row + 1))]
+        if (row + col, row - col) in diagonals and board[row + col][row - col] == 1:
+            return False
+    return True
 
-    number_of_instances = 0
-    print_symbol = "#"
+def solve_n_queens(n):
+    """
+    Solves the N queens problem using backtracking and optimization.
 
-    @classmethod
-    def square(cls, size=0):
-        """
-        returns a square
-        """
-        return cls(size, size)
+    Args:
+        n: The size of the chessboard.
 
-    def __init__(self, width=0, height=0):
-        """
-        Initialize the rectangle
-        """
-        self.__height = height
-        self.__width = width
-        Rectangle.number_of_instances += 1
+    Returns:
+        A list of lists, where each inner list represents a solution with queen positions.
+    """
+    solutions = []
+    board = [[0] * n for _ in range(n)]
 
-    @property
-    def width(self):
+    def backtrack(row):
         """
-        getter for the private instance attribute width
-        """
-        return self.__width
+        Recursive backtracking to find solutions.
 
-    @width.setter
-    def width(self, value):
+        Args:
+            row: The current row index to place a queen.
         """
-        setter for the private instance attribute width
-        """
-        if not type(value) is int:
-            raise TypeError("width must be an integer")
-        if value < 0:
-            raise ValueError("width must be >= 0")
-        self.__width = value
+        if row == n:
+            solutions.append([j for j, queen in enumerate(row) if queen == 1])
+            return
 
-    @property
-    def height(self):
-        """
-        getter for the private instance attribute height
-        """
-        return self.__height
+        # Optimize by prioritizing columns with fewer potential conflicts.
+        columns = sorted(range(n), key=lambda c: sum(board[i][c] for i in range(row)))
+        for col in columns:
+            if is_valid(board, row, col):
+                board[row][col] = 1
+                backtrack(row + 1)
+                board[row][col] = 0
 
-    @height.setter
-    def height(self, value):
-        """
-        setter for the private instance attribute height
-        """
-        if not type(value) is int:
-            raise TypeError("height must be an integer")
-        if value < 0:
-            raise ValueError("height must be >= 0")
-        self.__height = value
+    backtrack(0)
+    return solutions
 
-    def area(self):
-        """
-        return the area of the rectangle
-        """
-        return self.__width * self.__height
+if __name__ == "__main__":
+    if len(sys.argv) != 2:
+        print("Usage: nqueens N", file=sys.stderr)
+        sys.exit(1)
 
-    def perimeter(self):
-        """
-        return the perimeter of the rectangle
-        """
-        if self.__width == 0 or self.__height == 0:
-            return 0
-        return (self.__width + self.__height) * 2
+    try:
+        n = int(sys.argv[1])
+    except ValueError:
+        print("N must be a number", file=sys.stderr)
+        sys.exit(1)
 
-    def __str__(self):
-        """
-        return printable string rep of the rectangle
-        """
-        s = []
-        if self.__width != 0 and self.__height != 0:
-            for i in range(self.__height):
-                [s.append(str(self.print_symbol)) for j in range(self.__width)]
-                if i != self.__height - 1:
-                    s.append("\n")
-        return ("".join(s))
+    if n < 4:
+        print("N must be at least 4", file=sys.stderr)
+        sys.exit(1)
 
-    def __repr__(self):
-        """
-        returns a string representation of the rectangle
-        """
-        return "Rectangle({:d}, {:d})".format(self.__width, self.__height)
-
-    def __del__(self):
-        """
-        return a string when a rectangle is deleted
-        """
-        print("Bye rectangle...")
-        Rectangle.number_of_instances -= 1
-
-    @staticmethod
-    def bigger_or_equal(rect_1, rect_2):
-        """
-        returns the rectangle with the greater area
-        """
-        if not type(rect_1) is Rectangle:
-            raise TypeError("rect_1 must be an instance of Rectangle")
-        if not type(rect_2) is Rectangle:
-            raise TypeError("rect_2 must be an instance of Rectangle")
-        if rect_1.area() >= rect_2.area():
-            return rect_1
-        return rect_2
+    solutions = solve_n_queens(n)
+    if not solutions:
+        print("No solutions found for N =", n)
+    else:
+        for solution in solutions:
+            print(solution)
