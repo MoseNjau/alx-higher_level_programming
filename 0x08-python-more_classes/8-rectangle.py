@@ -35,7 +35,7 @@ class Rectangle:
         if not type(value) is int:
             raise TypeError("width must be an integer")
         if value < 0:
-            raise ValueError("width nust be >= 0")
+            raise ValueError("width must be >= 0")
         self.__width = value
 
     @property
@@ -51,8 +51,8 @@ class Rectangle:
         setter for the private instance attribute height
         """
         if not type(value) is int:
-            raise TypeError("height nust be an integer")
-        if height < 0:
+            raise TypeError("height must be an integer")
+        if value < 0:
             raise ValueError("height must be >= 0")
         self.__height = value
 
@@ -80,7 +80,7 @@ class Rectangle:
                 [s.append(str(self.print_symbol)) for j in range(self.__width)]
                 if i != self.__height - 1:
                     s.append("\n")
-        return ("".join(s))
+        return "".join(s)
 
     def __repr__(self):
         """
@@ -100,7 +100,7 @@ class Rectangle:
         """
         returns the rectangle with the greater area
         """
-        if not type(rect_1) is Recatangle:
+        if not type(rect_1) is Rectangle:
             raise TypeError("rect_1 must be an instance of Rectangle")
         if not type(rect_2) is Rectangle:
             raise TypeError("rect_2 must be an instance of Rectangle")
