@@ -33,9 +33,11 @@ def solve_nqueens(board, col, n):
 def print_solution(board):
     solution = []
     for i in range(len(board)):
+        row = []
         for j in range(len(board[i])):
             if board[i][j] == 1:
-                solution.append([i, j])
+                row.append([i, j])
+        solution.append(row)
     print(solution)
 
 def nqueens(N):
