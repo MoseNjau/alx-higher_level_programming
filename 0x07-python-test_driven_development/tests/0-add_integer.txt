@@ -1,0 +1,68 @@
+===============================
+ How to Use 0-add_integer.py
+===============================
+
+Importing the function from the module:
+	>>> add_integer = __import__('0-add_integer').add_integer
+
+Checking regular addition:
+	 >>> add_integer(10, 20)
+	 30
+
+Checking addition with floats:
+	 >>> add_integer(30.5, 10.4)
+	 40
+
+Checking addition of int and float:
+	 >>> add_integer(30.0, 5)
+	 35
+	 >>> add_integer(5, 30.0)
+	 35
+
+Checking addition with negative numbers:
+	 >>> add_integer(10, -3)
+	 7
+	 >>> add_integer(-3, 10)
+	 7
+	 >>> add_integer(-3, -10)
+	 -13
+
+Checking addition with a as string:
+	 >>> add_integer('aaa', 20)
+	 Traceback (most recent call last):
+	 ...
+	 TypeError: a must be an integer
+
+Checking addition with b as string:
+	 >>> add_integer(20, 'aaa')
+	 Traceback (most recent call last):
+	 ...
+	 TypeError: b must be an integer
+
+Checking addition with 1 value passed:
+	 >>> add_integer(3)
+	 101
+
+Checking addition with no values passed:
+	 >>> add_integer()
+	 Traceback (most recent call last):
+	 ...
+	 TypeError: add_integer() missing 1 required positional argument: 'a'
+
+Check addition if both are not integers:
+         >>> add_integer("aaa", "bbb")
+	 Traceback (most recent call last):
+	 ...
+	 TypeError: a must be an integer
+
+Checking some special floats:
+	 >>> add_integer(float('nan'), 3)
+	 Traceback (most recent call last):
+    	 ...
+	 ValueError: cannot convert float NaN to integer
+
+Checking another float:
+	 >>> add_integer(float("inf"), 3)
+	 Traceback (most recent call last):
+    	 ...
+	 OverflowError: cannot convert float infinity to integer

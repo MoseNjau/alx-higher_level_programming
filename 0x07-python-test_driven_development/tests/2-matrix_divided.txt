@@ -1,0 +1,25 @@
+===============================
+ How to Use 2-matrix_divided.py
+===============================
+
+Import matrix division function from above module:
+       >>> matrix_divided = __import__('2-matrix_divided').matrix_divided
+
+checking regular matrix division:
+	 >>> matrix = [[1, 2, 3], [4, 5, 6]]
+	 >>> print(matrix_divided(matrix, 3))
+	 [[0.33, 0.67, 1.0], [1.33, 1.67, 2.0]]
+
+Checking matrix with non-ints or float:
+	 >>> matrix = [[1, "true", 3], [4, 5, 6]]
+	 >>> print(matrix_divided(matrix, 3))
+	 Traceback (most recent call last):
+	 ...
+	 TypeError: matrix must be a matrix (list of lists) of integers/floats
+
+Checking if list in matrix is of same size:
+	 >>> matrix = [[1, 2, 3], [4, 5, 6, 7]]
+	 >>> print(matrix_divided(matrix, 3))
+	 Traceback (most recent call last):
+	 ...
+	 TypeError: Each row of the matrix must have the same size

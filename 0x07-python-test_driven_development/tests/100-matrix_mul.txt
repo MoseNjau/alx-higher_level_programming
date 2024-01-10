@@ -1,0 +1,13 @@
+===============================
+ How to Use 100-matrix_mul.py
+===============================
+
+This library is very simple, since it only has one function called
+``matrix_mul()``.
+
+Importing the function from the module:
+	  >>> matrix_mul = __import__('100-matrix_mul').matrix_mul
+
+Checking regular matrix multiplication:
+	 >>> matrix_mul([[1, 2], [3, 4]], [[1, 2], [3, 4]])
+	 [[7, 10], [15, 22]]
