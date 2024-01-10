@@ -107,7 +107,7 @@ class Rectangle:
         """
         returns the rectangle with the greater area
         """
-        if not type(rect_1) is Recatangle:
+        if not type(rect_1) is Rectangle:
             raise TypeError("rect_1 must be an instance of Rectangle")
         if not type(rect_2) is Rectangle:
             raise TypeError("rect_2 must be an instance of Rectangle")
