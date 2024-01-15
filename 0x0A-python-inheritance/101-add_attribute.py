@@ -6,7 +6,7 @@ def add_attribute(obj, attribute, value):
         raise TypeError("can't add new attribute")
     setattr(obj, attribute, value)
 
-add_attribute = __import__('101-add_attribute').add_attribute
+    add_attribute = __import__('101-add_attribute').add_attribute
 
 class MyClass():
     pass
