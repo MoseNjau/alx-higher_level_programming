@@ -1,5 +1,5 @@
 #!/usr/bin/node
-const args = process.args.slice(2);
+const args = process.argv.slice(2);
 const numArgs = args.length;
 
 if (numArgs === 0) {
