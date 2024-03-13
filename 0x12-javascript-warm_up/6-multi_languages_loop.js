@@ -1,6 +1,6 @@
 #!/usr/bin/node
-argv = ["C is fun", "Python is cool", "JavaScript is amazing"]
-
-for (let i = 0; i < 3; i++) {
-    console.log(argv[i]);
+const array = ['C is fun', 'Python is cool', 'JavaScript is amazing'];
+let i = 0;
+for (i; i < array.length; i++) {
+  console.log(array[i]);
 }

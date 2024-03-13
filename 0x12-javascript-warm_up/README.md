@@ -1,4 +1,1 @@
-0x12. JavaScript - Warm up
-
-## Contributor:
-- Moses Muiruri 
+# Javascript tasks from my third sprint at ALX
